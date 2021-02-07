@@ -1,0 +1,66 @@
+@page
+@model aws_parameter_store_manager.Pages.AddModel
+@{
+    ViewData["Title"] = "Add";
+}
+
+<div>
+    <div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><strong>New Parameter</strong></h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 item_content">
+                        <form method="post">
+                            <h4>
+                                <span>Please Enter New Parameter Details</span>
+                            </h4>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <div class="col-md-12" style="margin-top:15px;">
+                                                    <label asp-for="ParameterToCreate.Name" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' asp-for="ParameterToCreate.Name" />
+                                                    <span class="alert-danger" asp-validation-for="ParameterToCreate.Name"></span>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top:15px;">
+                                                    <label asp-for="ParameterToCreate.Value" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' asp-for="ParameterToCreate.Value" />
+                                                    <span class="alert-danger"
+                                                        asp-validation-for="ParameterToCreate.Value"></span>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top:15px;">
+                                                    <label asp-for="ParameterToCreate.Type" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' asp-for="ParameterToCreate.Type.Value" />
+                                                    <span class="alert-danger"
+                                                        asp-validation-for="ParameterToCreate.Type.Value"></span>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top:15px;">
+                                                    <label asp-for="ParameterToCreate.DataType" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' asp-for="ParameterToCreate.DataType" />
+                                                    <span class="alert-danger"
+                                                        asp-validation-for="ParameterToCreate.DataType"></span>
+                                                </div>
+
+                                                <div class="text-center col-md-12" style="margin-top:35px;">
+                                                    <button class="btn btn-primary btn-sx" type="submit"><i
+                                                            class="glyphicon glyphicon-plus"></i> Add Parameter</button>
+                                                    <a class="btn btn-primary btn-sx" asp-page="/Index"><i
+                                                            class="glyphicon glyphicon-backward"></i> Parameter List</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

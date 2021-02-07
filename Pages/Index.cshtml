@@ -1,10 +1,91 @@
 ﻿@page
-@model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
+@model aws_parameter_store_manager.Pages.IndexModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<form method="post" class="container text-left pt-2 mb-3">
+    <div class="form-row form-group">
+        <div class="col">
+            <a class="btn btn-primary btn-sx pull-left" 
+                asp-page="/Parameter/Add">
+                <i class="glyphicon glyphicon-plus"></i> Add New Parameter
+            </a>
+        </div>
+
+    </div>
+</form>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Parameter Name</th>
+            <th scope="col">Value</th>
+            <th scope="col">Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Parameters)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Value</td>
+                <td>
+                  
+                             <a class="" asp-page="/Parameter/Edit">
+                <i > Edit</i>
+            </a>
+
+                            <a class="" asp-page="/Parameter/Delete">
+                <i > Delete</i>
+            </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- pager -->
+@if (Model.Pager.Pages.Any())
+{
+    <div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <nav class="table-responsive">
+                <ul class="pagination justify-content-center d-flex flex-wrap">
+                    @if (Model.Pager.CurrentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/">First</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="/?p=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                            </li>
+                        }
+
+                        @foreach (var p in Model.Pager.Pages)
+                        {
+                            <li class="page-item @(p == Model.Pager.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="/?p=@p">@p</a>
+                            </li>
+                        }
+
+                        @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/?p=@(Model.Pager.CurrentPage + 1)">Next</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="/?p=@(Model.Pager.TotalPages)">Last</a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+            <div class="align-self-end">
+                <label asp-for="PageSize">Items per page</label>
+                <select asp-for="PageSize" asp-items="Model.PageSizeList" class="form-control form-control-sm"
+                    onchange="this.form.submit()"></select>
+            </div>
+
+        </div>
+    </div>
+}
