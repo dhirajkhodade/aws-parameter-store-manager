@@ -4,21 +4,20 @@
 <form method="post" class="container text-left pt-2 mb-3">
     <div class="form-row form-group">
         <div class="col">
-            <a class="btn btn-primary btn-sx pull-left" 
-                asp-page="/Parameter/Add">
+            <a class="btn btn-primary btn-sx pull-left" asp-page="/Parameter/Add">
                 <i class="glyphicon glyphicon-plus"></i> Add New Parameter
             </a>
         </div>
     </div>
-            @{
-                if (!string.IsNullOrEmpty(Model.Message))
-                {
-                    <div class="alert alert-success" id="success-alert">
-                        <button type="button" class="close" data-dismiss="alert">x</button>
-                        <strong>@Model.Message ! </strong>
-                    </div>
-                }
-            }
+    @{
+        if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="alert alert-success" id="success-alert">
+                <button type="button" class="close" data-dismiss="alert">x</button>
+                <strong>@Model.Message ! </strong>
+            </div>
+        }
+    }
 </form>
 
 <table class="table table-hover table-striped">
@@ -38,15 +37,16 @@
                 <td>@item.Value</td>
                 <td>@item.Type.Value</td>
                 <td>
-                  
-                             <a class="" asp-page="/Parameter/Edit">
-                <i > Edit</i>
-            </a>
 
-                            <a class="" asp-page="/Parameter/Delete">
-                <i > Delete</i>
-            </a>
-
+                    <a asp-page="/Parameter/Edit" asp-route-id="@item.Name">
+                        Edit
+                    </a>|
+<form style="display: inline-block;" method="POST">   
+                    <input value="Delete" class="btn btn-danger btn-sm py-0" style="font-size: 0.8em;" asp-page-handler="Delete" asp-route-id="@item.Name" type="submit"
+                        onclick="return confirm('Are you sure to delete this parameter?');" />
+                        
+                    
+</form>
                 </td>
             </tr>
         }
@@ -91,11 +91,11 @@
                 </nav>
             </div>
             <form method="post">
-            <div class="align-self-end">
-                <label asp-for="PageSize">Items per page</label>
-                <select asp-for="PageSize" asp-items="Model.PageSizeList" class="form-control form-control-sm"
-                    onchange="this.form.submit()"></select>
-            </div>
+                <div class="align-self-end">
+                    <label asp-for="PageSize">Items per page</label>
+                    <select asp-for="PageSize" asp-items="Model.PageSizeList" class="form-control form-control-sm"
+                        onchange="this.form.submit()"></select>
+                </div>
             </form>
         </div>
     </div>

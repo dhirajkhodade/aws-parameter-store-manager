@@ -8,7 +8,7 @@ namespace aws_parameter_store_manager
         Task<GetParameterResponse> GetParameter(GetParameterRequest getParameterRequest);
         Task<GetParametersByPathResponse> GetAllParameters(string parameterPath = "/");
         Task<PutParameterResponse> CreateParameter(PutParameterRequest parameterToCreate);
-        Task<PutParameterResponse> UpdateParameter(PutParameterRequest parameterToUpdate);
+        Task<PutParameterResponse> UpdateParameter(Parameter parameterToUpdate);
         Task<DeleteParameterResponse> DeleteParameter(DeleteParameterRequest parameterToDelete);
 
     }
