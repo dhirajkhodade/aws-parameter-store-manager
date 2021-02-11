@@ -10,7 +10,6 @@ namespace aws_parameter_store_manager
         {
             using (var client = new AmazonSimpleSystemsManagementClient())
             {
-                parameterToCreate.Type = "String";
                 return await client.PutParameterAsync(parameterToCreate);
             }
         }

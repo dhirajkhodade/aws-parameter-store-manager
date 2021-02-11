@@ -9,8 +9,16 @@
                 <i class="glyphicon glyphicon-plus"></i> Add New Parameter
             </a>
         </div>
-
     </div>
+            @{
+                if (!string.IsNullOrEmpty(Model.Message))
+                {
+                    <div class="alert alert-success" id="success-alert">
+                        <button type="button" class="close" data-dismiss="alert">x</button>
+                        <strong>@Model.Message ! </strong>
+                    </div>
+                }
+            }
 </form>
 
 <table class="table table-hover table-striped">
@@ -18,6 +26,7 @@
         <tr>
             <th scope="col">Parameter Name</th>
             <th scope="col">Value</th>
+            <th scope="col">Type</th>
             <th scope="col">Operation</th>
         </tr>
     </thead>
@@ -27,6 +36,7 @@
             <tr>
                 <td>@item.Name</td>
                 <td>@item.Value</td>
+                <td>@item.Type.Value</td>
                 <td>
                   
                              <a class="" asp-page="/Parameter/Edit">
@@ -57,35 +67,36 @@
                                 <a class="page-link" href="/">First</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="/?p=@(Model.Pager.CurrentPage - 1)">Previous</a>
+                                <a class="page-link" href="/?currentPage=@(Model.Pager.CurrentPage - 1)">Previous</a>
                             </li>
                         }
 
-                        @foreach (var p in Model.Pager.Pages)
+                        @foreach (var currentPage in Model.Pager.Pages)
                         {
-                            <li class="page-item @(p == Model.Pager.CurrentPage ? "active" : "")">
-                                <a class="page-link" href="/?p=@p">@p</a>
+                            <li class="page-item @(currentPage == Model.Pager.CurrentPage ? "active" : "")">
+                                <a class="page-link" href="/?currentPage=@currentPage">@currentPage</a>
                             </li>
                         }
 
                         @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
                         {
                             <li class="page-item">
-                                <a class="page-link" href="/?p=@(Model.Pager.CurrentPage + 1)">Next</a>
+                                <a class="page-link" href="/?currentPage=@(Model.Pager.CurrentPage + 1)">Next</a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="/?p=@(Model.Pager.TotalPages)">Last</a>
+                                <a class="page-link" href="/?currentPage=@(Model.Pager.TotalPages)">Last</a>
                             </li>
                         }
                     </ul>
                 </nav>
             </div>
+            <form method="post">
             <div class="align-self-end">
                 <label asp-for="PageSize">Items per page</label>
                 <select asp-for="PageSize" asp-items="Model.PageSizeList" class="form-control form-control-sm"
                     onchange="this.form.submit()"></select>
             </div>
-
+            </form>
         </div>
     </div>
 }

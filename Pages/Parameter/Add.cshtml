@@ -34,14 +34,14 @@
                                                         asp-validation-for="ParameterToCreate.Value"></span>
                                                 </div>
                                                 <div class="col-md-12" style="margin-top:15px;">
-                                                    <label asp-for="ParameterToCreate.Type" style="font-weight:bold;"></label>
-                                                    <input type='text' class='form-control' asp-for="ParameterToCreate.Type.Value" />
+                                                    <label asp-for="ParameterType" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' value="SecureString" asp-for="ParameterType" />
                                                     <span class="alert-danger"
                                                         asp-validation-for="ParameterToCreate.Type.Value"></span>
                                                 </div>
                                                 <div class="col-md-12" style="margin-top:15px;">
                                                     <label asp-for="ParameterToCreate.DataType" style="font-weight:bold;"></label>
-                                                    <input type='text' class='form-control' asp-for="ParameterToCreate.DataType" />
+                                                    <input type='text' class='form-control' value="text" asp-for="ParameterToCreate.DataType" />
                                                     <span class="alert-danger"
                                                         asp-validation-for="ParameterToCreate.DataType"></span>
                                                 </div>

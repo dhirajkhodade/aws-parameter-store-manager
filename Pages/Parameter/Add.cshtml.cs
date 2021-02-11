@@ -22,6 +22,8 @@ namespace aws_parameter_store_manager.Pages
 
         [BindProperty]
         public Amazon.SimpleSystemsManagement.Model.PutParameterRequest ParameterToCreate { get; set; }
+        [BindProperty]
+        public string ParameterType { get; set; }
 
         [TempData]
         public string Message { get; set; }
@@ -35,6 +37,7 @@ namespace aws_parameter_store_manager.Pages
         {
             if (ModelState.IsValid)
             {
+                ParameterToCreate.Type = ParameterType;
                 var response = await _awsParameterService.CreateParameter(ParameterToCreate);
                 if (response.HttpStatusCode == HttpStatusCode.OK)
                 {
