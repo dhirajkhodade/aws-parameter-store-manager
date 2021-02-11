@@ -16,12 +16,15 @@ namespace aws_parameter_store_manager
 
         public async Task<DeleteParameterResponse> DeleteParameter(DeleteParameterRequest parameterToDelete)
         {
-            throw new System.NotImplementedException();
+            using (var client = new AmazonSimpleSystemsManagementClient())
+            {
+                return await client.DeleteParameterAsync(parameterToDelete);
+            }
         }
 
         public async Task<GetParameterResponse> GetParameter(GetParameterRequest getParameterRequest)
         {
-             using (var client = new AmazonSimpleSystemsManagementClient())
+            using (var client = new AmazonSimpleSystemsManagementClient())
             {
                 return await client.GetParameterAsync(getParameterRequest);
             }
