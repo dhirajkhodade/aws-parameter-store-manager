@@ -21,12 +21,24 @@ namespace aws_parameter_store_manager
 
         public async Task<GetParameterResponse> GetParameter(GetParameterRequest getParameterRequest)
         {
-            throw new System.NotImplementedException();
+             using (var client = new AmazonSimpleSystemsManagementClient())
+            {
+                return await client.GetParameterAsync(getParameterRequest);
+            }
         }
 
-        public async Task<PutParameterResponse> UpdateParameter(PutParameterRequest parameterToUpdate)
+        public async Task<PutParameterResponse> UpdateParameter(Parameter parameterToUpdate)
         {
-            throw new System.NotImplementedException();
+            using (var client = new AmazonSimpleSystemsManagementClient())
+            {
+                return await client.PutParameterAsync(new PutParameterRequest(){
+                    Name = parameterToUpdate.Name,
+                    DataType = parameterToUpdate.DataType,
+                    Type = parameterToUpdate.Type,
+                    Value = parameterToUpdate.Value,
+                    Overwrite = true
+                });
+            }
         }
 
         async Task<GetParametersByPathResponse> IParameterStoreService.GetAllParameters(string parameterPath)

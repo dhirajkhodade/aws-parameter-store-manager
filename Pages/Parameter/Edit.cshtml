@@ -4,5 +4,63 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<div>
+    <div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title"><strong>Update Parameter</strong></h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 item_content">
+                        <form method="post">
+                            <h4>
+                                <span>Please Update Parameter Details</span>
+                            </h4>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="panel">
+                                            <div class="panel-body">
+                                                <div class="col-md-12" style="margin-top:15px;">
+                                                    <label asp-for="parameterToUpdate.Name" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' readonly asp-for="parameterToUpdate.Name" />
+                                                    <span class="alert-danger" asp-validation-for="parameterToUpdate.Name"></span>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top:15px;">
+                                                    <label asp-for="parameterToUpdate.Value" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' asp-for="parameterToUpdate.Value" />
+                                                    <span class="alert-danger"
+                                                        asp-validation-for="parameterToUpdate.Value"></span>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top:15px;">
+                                                    <label asp-for="ParameterType" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' asp-for="ParameterType" />
+                                                    <span class="alert-danger"
+                                                        asp-validation-for="parameterToUpdate.Type.Value"></span>
+                                                </div>
+                                                <div class="col-md-12" style="margin-top:15px;">
+                                                    <label asp-for="parameterToUpdate.DataType" style="font-weight:bold;"></label>
+                                                    <input type='text' class='form-control' asp-for="parameterToUpdate.DataType" />
+                                                    <span class="alert-danger"
+                                                        asp-validation-for="parameterToUpdate.DataType"></span>
+                                                </div>
 
+                                                <div class="text-center col-md-12" style="margin-top:35px;">
+                                                    <button class="btn btn-primary btn-sx" type="submit"><i
+                                                            class="glyphicon glyphicon-plus"></i> Update Parameter</button>
+                                                    <a class="btn btn-primary btn-sx" asp-page="/Index"><i
+                                                            class="glyphicon glyphicon-backward"></i> Parameter List</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
