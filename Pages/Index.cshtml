@@ -39,12 +39,12 @@
                 <td>@item.Type.Value</td>
                 <td>
                   
-                             <a class="" asp-page="/Parameter/Edit">
-                <i > Edit</i>
-            </a>
+                             <a asp-page="/Parameter/Edit" asp-route-id="@item.Name">
+                 Edit
+            </a>|
 
-                            <a class="" asp-page="/Parameter/Delete">
-                <i > Delete</i>
+                            <a asp-page="/Parameter/Delete" asp-route-id="@item.Name">
+                 Delete
             </a>
 
                 </td>
