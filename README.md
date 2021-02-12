@@ -1,0 +1,1 @@
+# aws-parameter-store-manager
