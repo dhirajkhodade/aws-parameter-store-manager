@@ -1,10 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +24,9 @@ namespace aws_parameter_store_manager
             services.AddScoped<IParameterStoreService,ParameterStoreService>();
             services.AddSession();
             services.AddRazorPages();
+            services.AddDataProtection()
+            .SetApplicationName("aws-parameter-store-manager")
+            .PersistKeysToFileSystem(new DirectoryInfo(@"/root/myappkeys"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +42,8 @@ namespace aws_parameter_store_manager
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseSession();
+            app.UseSession(new SessionOptions() { Cookie = new CookieBuilder() { 
+                Name = ".AspNetCore.Session.AwsParamManager"}});
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
