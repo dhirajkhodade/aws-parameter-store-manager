@@ -35,13 +35,19 @@ namespace aws_parameter_store_manager.Pages
         public async Task OnGet(int currentPage = 1)
         {
 
-            PageSizeList = new SelectList(new[] { 1, 5, 10, 20, 50, 100, 200, 500, 1000 });
+            PageSizeList = new SelectList(new[] { 1, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150 });
             PageSize = HttpContext.Session.GetInt32("PageSize") ?? 10;
 
             var allParameters = await _awsParameterService.GetAllParameters();
-            Pager = new Pager(allParameters.Parameters.Count, currentPage, PageSize);
+            Pager = new Pager(allParameters.Count, currentPage, PageSize);
 
-            Parameters = allParameters.Parameters.Skip((Pager.CurrentPage - 1) * Pager.PageSize).Take(Pager.PageSize);
+            Parameters = allParameters.Skip((Pager.CurrentPage - 1) * Pager.PageSize).Take(Pager.PageSize);
+        }
+
+        public async Task<JsonResult> OnGetParameters()
+        {
+            var allParameters = await _awsParameterService.GetAllParameters();
+            return new JsonResult(allParameters);
         }
 
         public IActionResult OnPost(int pageSize)

@@ -24,9 +24,9 @@ namespace aws_parameter_store_manager
             services.AddScoped<IParameterStoreService,ParameterStoreService>();
             services.AddSession();
             services.AddRazorPages();
-            services.AddDataProtection()
-            .SetApplicationName("aws-parameter-store-manager")
-            .PersistKeysToFileSystem(new DirectoryInfo(@"/root/myappkeys"));
+            // services.AddDataProtection()
+            // .SetApplicationName("aws-parameter-store-manager")
+            // .PersistKeysToFileSystem(new DirectoryInfo(@"/root/myappkeys"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

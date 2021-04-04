@@ -59,6 +59,17 @@
                             </div>
                         </form>
                     </div>
+                    <div class="col-md-4 item_content">
+                        <div class="text-center">
+                            <h1>Upload JSON File</h1>
+                        </div>
+
+                        <form method="post" enctype="multipart/form-data">
+                            <input asp-for="UploadedFile" />
+                            @* <input type="submit" /> *@
+                            <input value="Upload" asp-page-handler="Upload" type="submit"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

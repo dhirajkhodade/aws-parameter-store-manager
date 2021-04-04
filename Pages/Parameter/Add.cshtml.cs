@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
+using Amazon.SimpleSystemsManagement.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace aws_parameter_store_manager.Pages
 {
@@ -27,6 +32,8 @@ namespace aws_parameter_store_manager.Pages
 
         [TempData]
         public string Message { get; set; }
+        [BindProperty]
+        public IFormFile UploadedFile { get; set; }
 
         public IActionResult OnGet()
         {
@@ -43,9 +50,27 @@ namespace aws_parameter_store_manager.Pages
                 {
                     Message = "New Parameter Added Successfully !";
                     return RedirectToPage("/Index");
-                }                
+                }
             }
             return Page();
+        }
+
+        public async Task OnPostUploadAsync()
+        {
+            if (UploadedFile == null || UploadedFile.Length == 0)
+            {
+                return;
+            }
+            using (var ms = new MemoryStream())
+            {
+                UploadedFile.CopyTo(ms);
+                var jsonString = Encoding.ASCII.GetString(ms.ToArray());
+                var paramList = JsonConvert.DeserializeObject<List<PutParameterRequest>>(jsonString);
+                foreach (var param in paramList)
+                {
+                    var response=await _awsParameterService.CreateParameter(param);
+                }
+            }
         }
     }
 }

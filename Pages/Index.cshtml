@@ -100,3 +100,30 @@
         </div>
     </div>
 }
+
+ @* <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css" />
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+
+<div class="container-fluid">
+   <table id="grid"></table>
+</div>
+
+
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            var grid = $('#grid').grid({
+                dataSource: '/Index?handler=Parameters',
+                columns: [
+                    { field: 'name', title: 'Parameter Name', sortable: true },
+                    { field: 'value', title: 'Value'},
+                    { field: 'type', title: 'Type'},
+                    { field: 'version', title: 'Version' }
+                ],
+                pager: { limit: 5 }
+            });
+        });
+   
+</script> *@

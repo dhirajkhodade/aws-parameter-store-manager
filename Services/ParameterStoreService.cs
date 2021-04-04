@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Amazon.SimpleSystemsManagement;
 using Amazon.SimpleSystemsManagement.Model;
@@ -44,17 +45,27 @@ namespace aws_parameter_store_manager
             }
         }
 
-        async Task<GetParametersByPathResponse> IParameterStoreService.GetAllParameters(string parameterPath)
+        async Task<List<Parameter>> IParameterStoreService.GetAllParameters(string parameterPath)
         {
+            List<Parameter> allParameters = new List<Parameter>();
+            string nextToken = null;
             using (var client = new AmazonSimpleSystemsManagementClient())
             {
-                return await client.GetParametersByPathAsync(new GetParametersByPathRequest()
+                do
                 {
-                    Path = parameterPath,
-                    WithDecryption = true,
-                    Recursive = true
-                });
+                    var request = new GetParametersByPathRequest()
+                    {
+                        Path = parameterPath,
+                        WithDecryption = true,
+                        Recursive = true,
+                        NextToken = nextToken ?? null
+                    };
+                    var result = await client.GetParametersByPathAsync(request);
+                    allParameters.AddRange(result.Parameters);
+                    nextToken = result.NextToken;
+                } while (!string.IsNullOrEmpty(nextToken));
             }
+            return allParameters;
         }
 
     }
